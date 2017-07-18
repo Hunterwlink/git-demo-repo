@@ -1,7 +1,12 @@
 class PortfolisController < ApplicationController
 	before_action :set_portfolio_item, only: [:edit, :update, :show, :destroy]
 	layout 'portfolio'
-	access all: [:show, :index], user: {except: [:destroy, :new, :create, :update, :edit]}, site_admin: :all 
+	access all: [:show, :index], user: {except: [:destroy, :new, :create, :update, :edit]}, site_admin: :all
+	
+	def index
+		@portfolio_items = Portfolio.order("position ASC")
+	end
+	
 	def index
 		@portfolio_items =Portfolio.all
 	end
@@ -16,7 +21,7 @@ class PortfolisController < ApplicationController
 
 	def create 
 	@portfolio_items = Portfolio.new(parmas.require(:portfolio).permit(:title, :subtitle, :body))
-end
+
 		respond_to do |format|
 			if @portfolio_items.update()
 				format.html { redirect_to portfolio_path, notice: 'The record successfully updated.' }
@@ -28,7 +33,7 @@ end
 
 def show
 	@portfolio_items = Portfolio.find(parmas{:id})
-	end
+
 
 	@portfolio_items.destroy
 	
@@ -46,5 +51,5 @@ private
 
 end
 
-main_image: "http://via.placeholder.com/600x400",
-	thumb_image: "http://via.placeholder.com/350x200" ,
+main_image "http://via.placeholder.com/600x400",
+	thumb_image: "http://via.placeholder.com/350x200" 
