@@ -7,6 +7,12 @@ class PortfolisController < ApplicationController
 		@portfolio_items = Portfolio.order("position ASC")
 	end
 	
+	def sort
+		params[:order].each do |key, balue|
+		Portfolio.find(value[:id])
+	end
+	end
+
 	def index
 		@portfolio_items =Portfolio.all
 	end
